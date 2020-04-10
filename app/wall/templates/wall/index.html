@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>wall</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'wall/css/bootstrap.css' %}">
+</head>
+<body>
+    <div class="container-fluid row">
+        <form class="form-group col-6" action="/create" method="POST">
+            {% csrf_token %}
+            <h1>Register</h1>
+            {% if messages %}
+            {% for message in messages%}
+            {% if 'fname' in messages.tag %}
+            <p class="text-danger">{{message}}</p>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+            <label for="fname">First Name:</label>
+            <input class="form-control" type="fname" id="fname" name="fname">
+            {% if messages %}
+            {% for message in messages%}
+            {% if 'lname' in messages.tag %}
+            <p class="text-danger">{{message}}</p>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+            <label for="lname">Last Name:</label>
+            <input class="form-control" type="lname" id="lname" name="lname">
+            {% if messages %}
+            {% for message in messages%}
+            {% if 'email' in messages.tag %}
+            <p class="text-danger">{{message}}</p>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+            <label for="email">Email:</label>
+            <input class="form-control" type="email" id="email" name="email">
+            {% if messages %}
+            {% for message in messages%}
+            {% if 'pw' in messages.tag %}
+            <p class="text-danger">{{message}}</p>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+            <label for="pw">Password:</label>
+            <input class="form-control" type="password" id="pw" name="pw">
+            {% if messages %}
+            {% for message in messages%}
+            {% if 'checkpw' in messages.tag %}
+            <p class="text-danger">{{message}}</p>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+            <label for="checkpw">Confirm Password:</label>
+            <input class="form-control" type="password" id="checkpw" name="checkpw">
+            <button class="btn btn-primary mt-3">Register</button>
+        </form>
+        <form class="form-group col-6" action="/login" method="POST">
+            {% csrf_token %}
+            <h1>Login</h1>
+            {% if messages %}
+            {% for message in messages%}
+            {% if 'login' in messages.tag %}
+            <p class="text-danger">{{message}}</p>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+            <label for="email">Email:</label>
+            <input class="form-control" type="email" id="email" name="email">
+            <label for="pw">Password:</label>
+            <input class="form-control" type="password" id="pw" name="pw">
+            <button class="btn btn-primary mt-3">Login</button>
+        </form>
+    </div>
+</body>
+</html>

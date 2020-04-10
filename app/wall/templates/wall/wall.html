@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>wall</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'wall/css/bootstrap.css' %}">
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <p class ="navbar-brand-mb-0">The Mall</p>
+        <p class ="navbar-brand-m1-auto">Hello {{user.fname}}{{user.lname}}</p>
+        <a class ="navbar-brand" href="/destroy">Log Out</p>
+    </nav>
+    <div class="container-fluid">
+        <form class="form-group mt-3" action="/create/message" method="POST">
+            {% csrf_token %}
+            <p> Create a new message:</p>
+            <textarea name="content" id="content" cols="30" rows="3"></textarea>
+            <button class="btn btn-primary mt-3" type="submit">Send Message</button>
+        </form>
+        {% for message in messages %}
+        <p>{{message.userfname}}{{message.userlname}} - {{message.created_at}}:</p>
+        <p>{{message.content}}</p>
+        <div class="container">
+            {% for comment in comments %}
+            {% if comment.message.id ==message.id%}
+            <p>{{comment.user.fname}}{{comment.user.lname}} - {{comment.created_at}}:</p>
+            <p>{{comment.content}}</p>
+            {%% endif %}
+            {% endfor %}
+            <form class="form-group mt-3" action="/create/comment" method="POST">
+                {% csrf_token %}
+                <p> Create a new comment:</p>
+                <textarea name="content" id="content" cols="30" rows="3"></textarea>
+                <input type="hidden" name="messageid" value="{{message.id}}">
+                <button class="btn btn-primary mt-3" type="submit">Send Comment</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
